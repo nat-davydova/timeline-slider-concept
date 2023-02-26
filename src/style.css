@@ -1,0 +1,17 @@
+:root {
+    --text-color-default: #2c2c2c;
+
+    --font-size-default: 16px;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: var(--font-size-default);
+    color: var(--text-color-default);
+}
+
+.header {
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+}
