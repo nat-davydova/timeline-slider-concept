@@ -2,7 +2,7 @@
     --text-color-default: #2c2c2c;
     --text-color-light: #fff;
 
-    --font-size-default: 16px;
+    --font-size-default: 15px;
     --font-size-lg: 25px;
 
     --font-weight-regular: 400;
@@ -17,6 +17,8 @@
     --transition-duration: .2s;
     --transition-timing-function: linear;
     --transition-delay: 0s;
+
+    --negative-multiplier: -1;
 }
 
 body {
@@ -45,7 +47,11 @@ body a {
 }
 
 .header__btn {
-    transition: all var(--transition-duration) var(--transition-timing-function) var(--transition-delay);
+    transition:
+            all
+            var(--transition-duration)
+            var(--transition-timing-function)
+            var(--transition-delay);
     padding: 10px 20px;
     margin-right: 10px;
     background-color: var(--bg-color-default);
@@ -97,6 +103,29 @@ body a {
 }
 
 .timeline__step {
+    position: relative;
     width: 100%;
+    padding-top: 30px;
     text-align: center;
+    line-height: 1.5rem;
+    border-top: 2px solid;
+}
+
+.timeline__step:before {
+    --timeline-dot-dimensions: 10px;
+    --extra-offset-fox-pixelperfect: -1px;
+
+    --dot-top-position: var(--timeline-dot-dimensions)/2 * var(--negative-multiplier) + var(--extra-offset-fox-pixelperfect);
+
+    position: absolute;
+    top: calc(var(--dot-top-position));
+    left: 50%;
+    display: block;
+    width: var(--timeline-dot-dimensions);
+    height: var(--timeline-dot-dimensions);
+    transform: translate(-50%);
+    content: '';
+    border: 2px solid;
+    border-radius: 50%;
+    background-color: #fff;
 }
