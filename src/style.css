@@ -76,3 +76,12 @@ body a {
     font-weight: var(--font-weight-default);
     text-align: center;
 }
+
+/* TIMELINE STYLES: YOU NEED THEM!!! */
+.timeline-wrapper {
+    --wrapper-width: 900px;
+
+    width: 95%;
+    max-width: var(--wrapper-width);
+    margin: auto;
+}
