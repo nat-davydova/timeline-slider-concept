@@ -106,6 +106,16 @@ body a {
     width: 100%;
 }
 
+.timeline__icon {
+    --timeline-icon-dimensions: 60px;
+
+    display: block;
+    width: var(--timeline-icon-dimensions);
+    max-height: var(--timeline-icon-dimensions);
+    height: auto;
+    margin: auto;
+}
+
 .timeline__title {
     position: relative;
     padding-top: 30px;
