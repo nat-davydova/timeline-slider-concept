@@ -103,15 +103,18 @@ body a {
 }
 
 .timeline__step {
-    position: relative;
     width: 100%;
+}
+
+.timeline__title {
+    position: relative;
     padding-top: 30px;
     text-align: center;
     line-height: 1.5rem;
     border-top: 2px solid;
 }
 
-.timeline__step:before {
+.timeline__title:before {
     --timeline-dot-dimensions: 10px;
     --extra-offset-fox-pixelperfect: -1px;
 
