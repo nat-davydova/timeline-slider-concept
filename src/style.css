@@ -115,10 +115,12 @@ body a {
     --timeline-dot-dimensions: 10px;
     --extra-offset-fox-pixelperfect: -1px;
 
-    --dot-top-position: var(--timeline-dot-dimensions)/2 * var(--negative-multiplier) + var(--extra-offset-fox-pixelperfect);
+    --dot-top-position: calc(
+            var(--timeline-dot-dimensions)/2 * var(--negative-multiplier) + var(--extra-offset-fox-pixelperfect)
+    );
 
     position: absolute;
-    top: calc(var(--dot-top-position));
+    top: var(--dot-top-position);
     left: 50%;
     display: block;
     width: var(--timeline-dot-dimensions);
