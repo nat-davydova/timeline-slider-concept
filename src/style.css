@@ -160,3 +160,7 @@ body a {
     border-image-source: var(--gradient-default);
     border-image-slice: 1;
 }
+
+.timeline__step.is-active .timeline__icon {
+    fill: url(#icon-gradient);
+}
