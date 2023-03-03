@@ -113,7 +113,12 @@ body a {
 }
 
 .timeline__step {
+    --step-vertical-offset: 30px;
+
+    position: relative;
     width: 100%;
+    padding: var(--step-vertical-offset) 0;
+    cursor: pointer;
 }
 
 .timeline__icon {
@@ -124,6 +129,16 @@ body a {
     max-height: var(--timeline-icon-dimensions);
     height: auto;
     margin: 0 auto 30px;
+    transition: opacity var(--transition-duration) var(--transition-timing-function) var(--transition-delay);
+}
+
+.timeline__icon--active {
+    position: absolute;
+    top: var(--step-vertical-offset);
+    left: 50%;
+    transform: translate(-50%);
+    fill: url(#icon-gradient);
+    opacity: 0;
 }
 
 .timeline__title {
@@ -132,6 +147,7 @@ body a {
 
     position: relative;
     padding-top: 30px;
+    margin-bottom: 0;
     text-align: center;
     line-height: 1.5rem;
     border-top: 3px solid var(--border-color-default);
@@ -171,6 +187,10 @@ body a {
     background-color: #fff;
 }
 
+.timeline__step.is-active {
+    cursor: default;
+}
+
 .timeline__step.is-active .timeline__title {
     font-weight: var(--font-weight-semibold);
     border-image-source: var(--gradient-default);
@@ -187,6 +207,12 @@ body a {
     opacity: .35;
 }
 
-.timeline__step.is-active .timeline__icon {
-    fill: url(#icon-gradient);
+.timeline__step.is-active .timeline__icon--default,
+.timeline__step:not(.is-active):hover .timeline__icon--default {
+    opacity: 0;
+}
+
+.timeline__step.is-active .timeline__icon--active,
+.timeline__step:not(.is-active):hover .timeline__icon--active {
+    opacity: 1;
 }
