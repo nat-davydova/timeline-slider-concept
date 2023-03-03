@@ -108,9 +108,7 @@ body a {
 
     display: flex;
     justify-content: space-around;
-    padding: 0;
-    margin: 0 0 var(--offset-to-slider-content) 0;
-    list-style-type: none;
+    margin-bottom: var(--offset-to-slider-content);
 }
 
 .timeline__step {
