@@ -106,6 +106,7 @@ body a {
     --step-border-width: 3px;
     --offset-to-slider-content: 50px;
 
+    position: relative;
     display: flex;
     justify-content: space-around;
     margin-bottom: var(--offset-to-slider-content);
@@ -187,8 +188,16 @@ body a {
     background-color: #fff;
 }
 
+/* this elements generates in JS */
 .timeline__slide {
-    width: 300px;
+    --slide-pos-y: none; /* calcs on the fly in js */
+    --slide-pos-x: none; /* calcs on the fly in js */
+    --slide-width: auto; /* calcs on the fly in js */
+
+    position: absolute;
+    top: var(--slide-pos-y);
+    left: var(--slide-pos-x);
+    width: var(--slide-width);
     height: var(--step-border-width);
     background-image: var(--gradient-default);
 }

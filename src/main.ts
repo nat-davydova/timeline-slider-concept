@@ -8,6 +8,12 @@ const DOM = {
   timelineSlideElement: "timeline__slide",
 };
 
+const SLIDE_CUSTOM_PROPERTIES = {
+  width: "--slide-width",
+  posX: "--slide-pos-x",
+  posY: "--slide-pos-y",
+};
+
 const timeline = document.querySelector(`.${DOM.timeline}`);
 const timelineStepper = document.querySelector(`.${DOM.timelineStepper}`);
 
@@ -49,4 +55,35 @@ function createSlideElement() {
   const slideElement = document.createElement("div");
   slideElement.classList.add(`${DOM.timelineSlideElement}`);
   timelineStepper?.appendChild(slideElement);
+
+  setSlideElementProperties({ slideElement, posX: 0, posY: 100, width: 300 });
+}
+
+interface ISetSlideElementPositionProps {
+  slideElement: HTMLElement;
+  posX: number;
+  posY: number;
+  width: number;
+}
+
+function setSlideElementProperties({
+  slideElement,
+  posX,
+  posY,
+  width,
+}: ISetSlideElementPositionProps): void {
+  slideElement.style.setProperty(
+    `${SLIDE_CUSTOM_PROPERTIES.width}`,
+    `${width}px`
+  );
+
+  slideElement.style.setProperty(
+    `${SLIDE_CUSTOM_PROPERTIES.posX}`,
+    `${posX}px`
+  );
+
+  slideElement.style.setProperty(
+    `${SLIDE_CUSTOM_PROPERTIES.posY}`,
+    `${posY}px`
+  );
 }
