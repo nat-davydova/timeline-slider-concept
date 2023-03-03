@@ -103,6 +103,7 @@ body a {
 }
 
 .timeline__stepper {
+    --step-border-width: 3px;
     --offset-to-slider-content: 50px;
 
     display: flex;
@@ -150,7 +151,7 @@ body a {
     margin-bottom: 0;
     text-align: center;
     line-height: 1.5rem;
-    border-top: 3px solid var(--border-color-default);
+    border-top: var(--step-border-width) solid var(--border-color-default);
 }
 
 .timeline__title:before,
@@ -188,14 +189,18 @@ body a {
     background-color: #fff;
 }
 
+.timeline__slide {
+    width: 300px;
+    height: var(--step-border-width);
+    background-image: var(--gradient-default);
+}
+
 .timeline__step.is-active {
     cursor: default;
 }
 
 .timeline__step.is-active .timeline__title {
     font-weight: var(--font-weight-semibold);
-    border-image-source: var(--gradient-default);
-    border-image-slice: 1;
 }
 
 .timeline__step.is-active .timeline__title:before {
