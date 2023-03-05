@@ -15,7 +15,7 @@ const SLIDE_CUSTOM_PROPERTIES = {
 };
 
 const timeline = document.querySelector(`.${DOM.timeline}`);
-const timelineStepper = document.querySelector(`.${DOM.timelineStepper}`);
+const timelineStepper = timeline?.querySelector(`.${DOM.timelineStepper}`);
 
 window.addEventListener("load", () => {
   createSlideElement();
@@ -33,13 +33,23 @@ timeline?.addEventListener("click", (event) => {
   }
 
   const currentStep = target.closest(`.${DOM.timelineStep}`);
+  const slideElement = timeline.querySelector(
+    `.${DOM.timelineSlideElement}`
+  ) as HTMLElement;
 
-  if (!currentStep) {
+  if (!currentStep || !slideElement) {
     return;
   }
 
   deactivateSteps();
   activateCurrentStep(currentStep);
+
+  const slideProps = getSlideElementProperties();
+  if (!slideProps) {
+    return;
+  }
+
+  setSlideElementProperties({ slideElement, ...slideProps });
 });
 
 function deactivateSteps(): void {
