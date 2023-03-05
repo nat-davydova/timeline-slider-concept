@@ -4,6 +4,7 @@ const DOM = {
   timeline: "timeline",
   timelineStepper: "timeline__stepper",
   timelineStep: "timeline__step",
+  timelineStepTitle: "timeline__title",
   timelineStepActive: "is-active",
   timelineSlideElement: "timeline__slide",
 };
@@ -16,6 +17,7 @@ const SLIDE_CUSTOM_PROPERTIES = {
 
 const timeline = document.querySelector(`.${DOM.timeline}`);
 const timelineStepper = timeline?.querySelector(`.${DOM.timelineStepper}`);
+const timelineStepTitle = timeline?.querySelector(`.${DOM.timelineStepTitle}`);
 
 window.addEventListener("load", () => {
   createSlideElement();
@@ -114,8 +116,13 @@ function getSlideElementProperties(): IGetSlideElementPositionProps | null {
   }
 
   const width = getElementWidth(currentStep);
+  const posY = getSlideElementPosY();
 
-  return { posX: 0, posY: 100, width };
+  if (!posY) {
+    return null;
+  }
+
+  return { posX: 0, posY, width };
 }
 
 function getCurrentStep(): Element | null {
@@ -124,6 +131,17 @@ function getCurrentStep(): Element | null {
   );
 
   return currentStep || null;
+}
+
+function getSlideElementPosY(): number | null {
+  const timelineTitlePosY = timelineStepTitle?.getBoundingClientRect().top;
+  const timelineStepperPosY = timelineStepper?.getBoundingClientRect().top;
+
+  if (!timelineTitlePosY || !timelineStepperPosY) {
+    return null;
+  }
+
+  return timelineTitlePosY - timelineStepperPosY;
 }
 
 function getElementWidth(elem: Element): number {
