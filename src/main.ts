@@ -117,12 +117,13 @@ function getSlideElementProperties(): IGetSlideElementPositionProps | null {
 
   const width = getElementWidth(currentStep);
   const posY = getSlideElementPosY();
+  const posX = getSlideElementPosX(currentStep);
 
-  if (!posY) {
+  if (!(typeof posX === "number") || !(typeof posY === "number")) {
     return null;
   }
 
-  return { posX: 0, posY, width };
+  return { posX, posY, width };
 }
 
 function getCurrentStep(): Element | null {
@@ -142,6 +143,17 @@ function getSlideElementPosY(): number | null {
   }
 
   return timelineTitlePosY - timelineStepperPosY;
+}
+
+function getSlideElementPosX(currentStep: Element): number | null {
+  const timelineStepperPosX = timelineStepper?.getBoundingClientRect().left;
+  const currentStepPosX = currentStep.getBoundingClientRect().left;
+
+  if (!timelineStepperPosX) {
+    return null;
+  }
+
+  return currentStepPosX - timelineStepperPosX;
 }
 
 function getElementWidth(elem: Element): number {
