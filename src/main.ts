@@ -95,3 +95,11 @@ function setSlideElementProperties({
 function getSlideElementProperties(): IGetSlideElementPositionProps {
   return { posX: 0, posY: 100, width: 300 };
 }
+
+function getCurrentStep(): Element | null {
+  const currentStep = document.querySelector(
+    `.${DOM.timelineStep}.${DOM.timelineStepActive}`
+  );
+
+  return currentStep || null;
+}
