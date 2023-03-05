@@ -57,6 +57,10 @@ function createSlideElement() {
   timelineStepper?.appendChild(slideElement);
 
   const positionProps = getSlideElementProperties();
+  if (!positionProps) {
+    return;
+  }
+
   setSlideElementProperties({ slideElement, ...positionProps });
 }
 
@@ -92,8 +96,16 @@ function setSlideElementProperties({
   );
 }
 
-function getSlideElementProperties(): IGetSlideElementPositionProps {
-  return { posX: 0, posY: 100, width: 300 };
+function getSlideElementProperties(): IGetSlideElementPositionProps | null {
+  const currentStep = getCurrentStep();
+
+  if (!currentStep) {
+    return null;
+  }
+
+  const width = getElementWidth(currentStep);
+
+  return { posX: 0, posY: 100, width };
 }
 
 function getCurrentStep(): Element | null {
@@ -102,4 +114,8 @@ function getCurrentStep(): Element | null {
   );
 
   return currentStep || null;
+}
+
+function getElementWidth(elem: Element): number {
+  return elem.clientWidth;
 }
