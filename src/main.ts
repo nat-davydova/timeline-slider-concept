@@ -56,14 +56,18 @@ function createSlideElement() {
   slideElement.classList.add(`${DOM.timelineSlideElement}`);
   timelineStepper?.appendChild(slideElement);
 
-  setSlideElementProperties({ slideElement, posX: 0, posY: 100, width: 300 });
+  const positionProps = getSlideElementProperties();
+  setSlideElementProperties({ slideElement, ...positionProps });
 }
 
-interface ISetSlideElementPositionProps {
-  slideElement: HTMLElement;
+interface IGetSlideElementPositionProps {
   posX: number;
   posY: number;
   width: number;
+}
+
+interface ISetSlideElementPositionProps extends IGetSlideElementPositionProps {
+  slideElement: HTMLElement;
 }
 
 function setSlideElementProperties({
@@ -86,4 +90,8 @@ function setSlideElementProperties({
     `${SLIDE_CUSTOM_PROPERTIES.posY}`,
     `${posY}px`
   );
+}
+
+function getSlideElementProperties(): IGetSlideElementPositionProps {
+  return { posX: 0, posY: 100, width: 300 };
 }
