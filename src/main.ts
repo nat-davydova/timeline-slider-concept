@@ -69,16 +69,18 @@ function createSlideElement() {
   timelineStepper?.appendChild(slideElement);
 
   const positionProps = getSlideElementProperties();
-  if (!positionProps) {
+  const posY = getSlideElementPosY();
+
+  if (!positionProps || typeof posY !== "number") {
     return;
   }
 
-  setSlideElementProperties({ slideElement, ...positionProps });
+  setSlideElementProperties({ slideElement, posY, ...positionProps });
 }
 
 interface IGetSlideElementPositionProps {
   posX: number;
-  posY: number;
+  posY?: number;
   width: number;
 }
 
@@ -102,10 +104,12 @@ function setSlideElementProperties({
     `${posX}px`
   );
 
-  slideElement.style.setProperty(
-    `${SLIDE_CUSTOM_PROPERTIES.posY}`,
-    `${posY}px`
-  );
+  if (typeof posY === "number") {
+    slideElement.style.setProperty(
+      `${SLIDE_CUSTOM_PROPERTIES.posY}`,
+      `${posY}px`
+    );
+  }
 }
 
 function getSlideElementProperties(): IGetSlideElementPositionProps | null {
@@ -116,14 +120,13 @@ function getSlideElementProperties(): IGetSlideElementPositionProps | null {
   }
 
   const width = getElementWidth(currentStep);
-  const posY = getSlideElementPosY();
   const posX = getSlideElementPosX(currentStep);
 
-  if (!(typeof posX === "number") || !(typeof posY === "number")) {
+  if (typeof posX !== "number") {
     return null;
   }
 
-  return { posX, posY, width };
+  return { posX, width };
 }
 
 function getCurrentStep(): Element | null {
