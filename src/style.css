@@ -121,6 +121,10 @@ body a {
     cursor: pointer;
 }
 
+.timeline__step:nth-child(2) {
+    width: 200%;
+}
+
 .timeline__icon {
     --timeline-icon-dimensions: 60px;
 
@@ -194,11 +198,14 @@ body a {
     --slide-pos-x: none; /* calcs on the fly in js */
     --slide-width: auto; /* calcs on the fly in js */
 
+    --transition-timing-function: cubic-bezier(0, 0, 0, 1.2);
+
     position: absolute;
     top: var(--slide-pos-y);
     left: var(--slide-pos-x);
     width: var(--slide-width);
     height: var(--step-border-width);
+    transition: left var(--transition-duration) var(--transition-timing-function) var(--transition-delay);
     background-image: var(--gradient-default);
 }
 
