@@ -233,3 +233,11 @@ body a {
 .timeline__step:not(.is-active):hover .timeline__icon--active {
     opacity: 1;
 }
+
+.timeline__slide {
+    display: none;
+}
+
+.timeline__slide:nth-child(1) {
+    display: block;
+}
