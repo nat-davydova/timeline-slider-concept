@@ -6,7 +6,7 @@ const DOM = {
   timelineStep: "timeline__step",
   timelineStepTitle: "timeline__title",
   timelineStepActive: "is-active",
-  timelineSlideElement: "timeline__slide",
+  timelineStepActiveMarker: "timeline__step-active-marker",
 };
 
 const SLIDE_CUSTOM_PROPERTIES = {
@@ -36,7 +36,7 @@ timeline?.addEventListener("click", (event) => {
 
   const currentStep = target.closest(`.${DOM.timelineStep}`);
   const slideElement = timeline.querySelector(
-    `.${DOM.timelineSlideElement}`
+    `.${DOM.timelineStepActiveMarker}`
   ) as HTMLElement;
 
   if (!currentStep || !slideElement) {
@@ -65,7 +65,7 @@ function activateCurrentStep(currentStep: Element): void {
 
 function createSlideElement() {
   const slideElement = document.createElement("div");
-  slideElement.classList.add(`${DOM.timelineSlideElement}`);
+  slideElement.classList.add(`${DOM.timelineStepActiveMarker}`);
   timelineStepper?.appendChild(slideElement);
 
   const positionProps = getSlideElementProperties();

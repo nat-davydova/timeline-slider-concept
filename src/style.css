@@ -186,7 +186,7 @@ body a {
 }
 
 /* this elements generates in JS */
-.timeline__slide {
+.timeline__step-active-marker {
     --slide-pos-y: none; /* calcs on the fly in js */
     --slide-pos-x: none; /* calcs on the fly in js */
     --slide-width: auto; /* calcs on the fly in js */
