@@ -4,7 +4,7 @@ const DOM = {
   timeline: "timeline",
   timelineStepper: "timeline__stepper",
   timelineStep: "timeline__step",
-  timelineStepTitle: "timeline__title",
+  timelineStepTitle: "timeline__step-title",
   timelineStepActive: "is-active",
   timelineStepActiveMarker: "timeline__step-active-marker",
 };
