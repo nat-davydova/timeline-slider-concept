@@ -113,11 +113,8 @@ body a {
 }
 
 .timeline__step {
-    --step-vertical-offset: 30px;
-
     position: relative;
     width: 100%;
-    padding: var(--step-vertical-offset) 0;
     cursor: pointer;
 }
 
@@ -134,7 +131,7 @@ body a {
 
 .timeline__icon--active {
     position: absolute;
-    top: var(--step-vertical-offset);
+    top: 0;
     left: 50%;
     transform: translate(-50%);
     fill: url(#icon-gradient);
