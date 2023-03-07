@@ -146,7 +146,7 @@ body a {
     padding-top: 30px;
     margin-bottom: 0;
     text-align: center;
-    line-height: 1.5rem;
+    line-height: 1.7;
     border-top: var(--step-border-width) solid var(--border-color-default);
 }
 
@@ -249,7 +249,8 @@ body a {
 }
 
 .timeline__slide {
-    --content-offset: 30px;
+    --content-offset-x: 30px;
+    --content-offset-y: 40px;
 
     --decoration-blur-spread: 20px;
     --decoration-opacity: .7;
@@ -258,7 +259,7 @@ body a {
     --decoration-scale: 1;
 
     position: relative;
-    padding: var(--content-offset);
+    padding: var(--content-offset-y) var(--content-offset-x);
     border-radius: 5px;
     background-color: var(--bg-color-default);
 }
@@ -279,4 +280,16 @@ body a {
 
 .timeline__slide-title {
     margin-top: 0;
+}
+
+.timeline__slide-content {
+    line-height: 1.7;
+}
+
+.timeline__slide-content p:first-child {
+    margin-top: 0;
+}
+
+.timeline__slide-content p:last-child {
+    margin-bottom: 0;
 }
