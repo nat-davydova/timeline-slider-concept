@@ -9,7 +9,7 @@ const DOM = {
   timelineStepActiveMarker: "timeline__step-active-marker",
 };
 
-const SLIDE_CUSTOM_PROPERTIES = {
+const STEP_ACTIVE_MARKEP_CUSTOM_PROPS = {
   width: "--slide-width",
   posX: "--slide-pos-x",
   posY: "--slide-pos-y",
@@ -20,7 +20,7 @@ const timelineStepper = timeline?.querySelector(`.${DOM.timelineStepper}`);
 const timelineStepTitle = timeline?.querySelector(`.${DOM.timelineStepTitle}`);
 
 window.addEventListener("load", () => {
-  createSlideElement();
+  createStepActiveMarker();
 });
 
 timeline?.addEventListener("click", (event) => {
@@ -35,23 +35,23 @@ timeline?.addEventListener("click", (event) => {
   }
 
   const currentStep = target.closest(`.${DOM.timelineStep}`);
-  const slideElement = timeline.querySelector(
+  const stepActiveMarker = timeline.querySelector(
     `.${DOM.timelineStepActiveMarker}`
   ) as HTMLElement;
 
-  if (!currentStep || !slideElement) {
+  if (!currentStep || !stepActiveMarker) {
     return;
   }
 
   deactivateSteps();
   activateCurrentStep(currentStep);
 
-  const slideProps = getSlideElementProperties();
+  const slideProps = getStepActiveMarkerProps();
   if (!slideProps) {
     return;
   }
 
-  setSlideElementProperties({ slideElement, ...slideProps });
+  setStepActiveMarkerProps({ stepActiveMarker, ...slideProps });
 });
 
 function deactivateSteps(): void {
@@ -63,56 +63,61 @@ function activateCurrentStep(currentStep: Element): void {
   currentStep?.classList.add(`${DOM.timelineStepActive}`);
 }
 
-function createSlideElement() {
-  const slideElement = document.createElement("div");
-  slideElement.classList.add(`${DOM.timelineStepActiveMarker}`);
-  timelineStepper?.appendChild(slideElement);
+function createStepActiveMarker() {
+  const stepActiveMarker = document.createElement("div");
+  stepActiveMarker.classList.add(`${DOM.timelineStepActiveMarker}`);
+  timelineStepper?.appendChild(stepActiveMarker);
 
-  const positionProps = getSlideElementProperties();
-  const posY = getSlideElementPosY();
+  const positionProps = getStepActiveMarkerProps();
+  const posY = getStepActiveMarkerPosY();
 
   if (!positionProps || typeof posY !== "number") {
     return;
   }
 
-  setSlideElementProperties({ slideElement, posY, ...positionProps });
+  setStepActiveMarkerProps({
+    stepActiveMarker,
+    posY,
+    ...positionProps,
+  });
 }
 
-interface IGetSlideElementPositionProps {
+interface IGetStepActiveMarkerPositionProps {
   posX: number;
   posY?: number;
   width: number;
 }
 
-interface ISetSlideElementPositionProps extends IGetSlideElementPositionProps {
-  slideElement: HTMLElement;
+interface ISetStepActiveMarkerPositionProps
+  extends IGetStepActiveMarkerPositionProps {
+  stepActiveMarker: HTMLElement;
 }
 
-function setSlideElementProperties({
-  slideElement,
+function setStepActiveMarkerProps({
+  stepActiveMarker,
   posX,
   posY,
   width,
-}: ISetSlideElementPositionProps): void {
-  slideElement.style.setProperty(
-    `${SLIDE_CUSTOM_PROPERTIES.width}`,
+}: ISetStepActiveMarkerPositionProps): void {
+  stepActiveMarker.style.setProperty(
+    `${STEP_ACTIVE_MARKEP_CUSTOM_PROPS.width}`,
     `${width}px`
   );
 
-  slideElement.style.setProperty(
-    `${SLIDE_CUSTOM_PROPERTIES.posX}`,
+  stepActiveMarker.style.setProperty(
+    `${STEP_ACTIVE_MARKEP_CUSTOM_PROPS.posX}`,
     `${posX}px`
   );
 
   if (typeof posY === "number") {
-    slideElement.style.setProperty(
-      `${SLIDE_CUSTOM_PROPERTIES.posY}`,
+    stepActiveMarker.style.setProperty(
+      `${STEP_ACTIVE_MARKEP_CUSTOM_PROPS.posY}`,
       `${posY}px`
     );
   }
 }
 
-function getSlideElementProperties(): IGetSlideElementPositionProps | null {
+function getStepActiveMarkerProps(): IGetStepActiveMarkerPositionProps | null {
   const currentStep = getCurrentStep();
 
   if (!currentStep) {
@@ -120,7 +125,7 @@ function getSlideElementProperties(): IGetSlideElementPositionProps | null {
   }
 
   const width = getElementWidth(currentStep);
-  const posX = getSlideElementPosX(currentStep);
+  const posX = getStepActiveMarkerPosX(currentStep);
 
   if (typeof posX !== "number") {
     return null;
@@ -137,7 +142,7 @@ function getCurrentStep(): Element | null {
   return currentStep || null;
 }
 
-function getSlideElementPosY(): number | null {
+function getStepActiveMarkerPosY(): number | null {
   const timelineTitlePosY = timelineStepTitle?.getBoundingClientRect().top;
   const timelineStepperPosY = timelineStepper?.getBoundingClientRect().top;
 
@@ -148,7 +153,7 @@ function getSlideElementPosY(): number | null {
   return timelineTitlePosY - timelineStepperPosY;
 }
 
-function getSlideElementPosX(currentStep: Element): number | null {
+function getStepActiveMarkerPosX(currentStep: Element): number | null {
   const timelineStepperPosX = timelineStepper?.getBoundingClientRect().left;
   const currentStepPosX = currentStep.getBoundingClientRect().left;
 
