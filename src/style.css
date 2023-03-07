@@ -247,3 +247,32 @@ body a {
     max-width: 100%;
     margin: auto;
 }
+
+.timeline__slide {
+    --content-offset: 30px;
+
+    --decoration-blur-spread: 20px;
+    --decoration-opacity: .7;
+    --decoration-pos-x: 0;
+    --decoration-pos-y: 20px;
+    --decoration-scale: 1;
+
+    position: relative;
+    padding: var(--content-offset);
+    border-radius: 5px;
+    background-color: var(--bg-color-default);
+}
+
+.timeline__slide:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background-image: var(--gradient-default);
+    filter: blur(var(--decoration-blur-spread));
+    opacity: var(--decoration-opacity);
+    transform: translate(var(--decoration-pos-x), var( --decoration-pos-y)) scale(var(--decoration-scale));
+    z-index: -1;
+}
