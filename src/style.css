@@ -276,3 +276,7 @@ body a {
     transform: translate(var(--decoration-pos-x), var( --decoration-pos-y)) scale(var(--decoration-scale));
     z-index: -1;
 }
+
+.timeline__slide-title {
+    margin-top: 0;
+}
