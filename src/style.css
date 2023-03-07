@@ -241,3 +241,9 @@ body a {
 .timeline__slide:nth-child(1) {
     display: block;
 }
+
+.timeline__slides {
+    width: 600px;
+    max-width: 100%;
+    margin: auto;
+}
