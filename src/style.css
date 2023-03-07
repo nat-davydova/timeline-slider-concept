@@ -234,15 +234,8 @@ body a {
     opacity: 1;
 }
 
-.timeline__slide {
-    display: none;
-}
-
-.timeline__slide:nth-child(1) {
-    display: block;
-}
-
 .timeline__slides {
+    position: relative;
     width: 600px;
     max-width: 100%;
     margin: auto;
@@ -258,10 +251,20 @@ body a {
     --decoration-pos-y: 20px;
     --decoration-scale: 1;
 
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     padding: var(--content-offset-y) var(--content-offset-x);
     border-radius: 5px;
     background-color: var(--bg-color-default);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.timeline__slide.is-active {
+    transition: opacity var(--transition-duration) var(--transition-timing-function) var(--transition-delay);
+    opacity: 1;
+    visibility: visible;
 }
 
 .timeline__slide:before {
