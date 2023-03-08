@@ -25,7 +25,7 @@ const timelineSlides =
 
 interface IGetStepActiveMarkerPositionProps {
   posX: number;
-  posY?: number;
+  posY: number;
   width: number;
 }
 
@@ -100,15 +100,13 @@ function createStepActiveMarker() {
   timelineStepper?.appendChild(stepActiveMarker);
 
   const positionProps = getStepActiveMarkerProps();
-  const posY = getStepActiveMarkerPosY();
 
-  if (!positionProps || typeof posY !== "number") {
+  if (!positionProps) {
     return;
   }
 
   setStepActiveMarkerProps({
     stepActiveMarker,
-    posY,
     ...positionProps,
   });
 }
@@ -159,12 +157,13 @@ function getStepActiveMarkerProps(): IGetStepActiveMarkerPositionProps | null {
 
   const width = getElementWidth(currentStep);
   const posX = getStepActiveMarkerPosX(currentStep);
+  const posY = getStepActiveMarkerPosY();
 
-  if (typeof posX !== "number") {
+  if (typeof posX !== "number" || typeof posY !== "number") {
     return null;
   }
 
-  return { posX, width };
+  return { posX, posY, width };
 }
 
 function getCurrentStep(): ICurrentStepProps {
