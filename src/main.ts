@@ -44,6 +44,19 @@ window.addEventListener("load", () => {
   activateCurrentSlide();
 });
 
+window.addEventListener("resize", () => {
+  const stepActiveMarker = timeline?.querySelector(
+    `.${DOM.timelineStepActiveMarker}`
+  ) as HTMLElement;
+
+  const stepActiveMarkerProps = getStepActiveMarkerProps();
+  if (!stepActiveMarkerProps) {
+    return;
+  }
+
+  setStepActiveMarkerProps({ stepActiveMarker, ...stepActiveMarkerProps });
+});
+
 timeline?.addEventListener("click", (event) => {
   const { target } = event;
 
