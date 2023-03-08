@@ -261,12 +261,6 @@ body a {
     visibility: hidden;
 }
 
-.timeline__slide.is-active {
-    transition: opacity var(--transition-duration) var(--transition-timing-function) var(--transition-delay);
-    opacity: 1;
-    visibility: visible;
-}
-
 .timeline__slide:before {
     position: absolute;
     top: 0;
@@ -276,9 +270,22 @@ body a {
     content: "";
     background-image: var(--gradient-default);
     filter: blur(var(--decoration-blur-spread));
-    opacity: var(--decoration-opacity);
+    opacity: 0;
     transform: translate(var(--decoration-pos-x), var( --decoration-pos-y)) scale(var(--decoration-scale));
     z-index: -1;
+}
+
+.timeline__slide.is-active {
+    transition: opacity var(--transition-duration) var(--transition-timing-function) var(--transition-delay);
+    opacity: 1;
+    visibility: visible;
+}
+
+.timeline__slide.is-active:before {
+    --transition-delay: var(--transition-duration);
+
+    transition: opacity var(--transition-duration) var(--transition-timing-function) var(--transition-delay);
+    opacity: var(--decoration-opacity);
 }
 
 .timeline__slide-title {
