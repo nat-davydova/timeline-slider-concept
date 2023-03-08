@@ -7,6 +7,8 @@ const DOM = {
   timelineStepTitle: "timeline__step-title",
   timelineStepActive: "is-active",
   timelineStepActiveMarker: "timeline__step-active-marker",
+  timelineSlide: "timeline__slide",
+  timelineSlideActive: "is-active",
 };
 
 const STEP_ACTIVE_MARKEP_CUSTOM_PROPS = {
@@ -18,9 +20,28 @@ const STEP_ACTIVE_MARKEP_CUSTOM_PROPS = {
 const timeline = document.querySelector(`.${DOM.timeline}`);
 const timelineStepper = timeline?.querySelector(`.${DOM.timelineStepper}`);
 const timelineStepTitle = timeline?.querySelector(`.${DOM.timelineStepTitle}`);
+const timelineSlides =
+  timeline && Array.from(timeline.querySelectorAll(`.${DOM.timelineSlide}`));
+
+interface IGetStepActiveMarkerPositionProps {
+  posX: number;
+  posY?: number;
+  width: number;
+}
+
+interface ISetStepActiveMarkerPositionProps
+  extends IGetStepActiveMarkerPositionProps {
+  stepActiveMarker: HTMLElement;
+}
+
+interface ICurrentStepProps {
+  currentStep: Element | undefined;
+  currentStepIndex: number | undefined;
+}
 
 window.addEventListener("load", () => {
   createStepActiveMarker();
+  activateSlide();
 });
 
 timeline?.addEventListener("click", (event) => {
@@ -63,6 +84,11 @@ function activateCurrentStep(currentStep: Element): void {
   currentStep?.classList.add(`${DOM.timelineStepActive}`);
 }
 
+function activateSlide() {
+  const currentSlide = getCurrentSlide();
+  currentSlide?.classList.add(`${DOM.timelineSlideActive}`);
+}
+
 function createStepActiveMarker() {
   const stepActiveMarker = document.createElement("div");
   stepActiveMarker.classList.add(`${DOM.timelineStepActiveMarker}`);
@@ -80,17 +106,6 @@ function createStepActiveMarker() {
     posY,
     ...positionProps,
   });
-}
-
-interface IGetStepActiveMarkerPositionProps {
-  posX: number;
-  posY?: number;
-  width: number;
-}
-
-interface ISetStepActiveMarkerPositionProps
-  extends IGetStepActiveMarkerPositionProps {
-  stepActiveMarker: HTMLElement;
 }
 
 function setStepActiveMarkerProps({
@@ -118,7 +133,7 @@ function setStepActiveMarkerProps({
 }
 
 function getStepActiveMarkerProps(): IGetStepActiveMarkerPositionProps | null {
-  const currentStep = getCurrentStep();
+  const { currentStep } = getCurrentStep();
 
   if (!currentStep) {
     return null;
@@ -134,12 +149,32 @@ function getStepActiveMarkerProps(): IGetStepActiveMarkerPositionProps | null {
   return { posX, width };
 }
 
-function getCurrentStep(): Element | null {
-  const currentStep = document.querySelector(
-    `.${DOM.timelineStep}.${DOM.timelineStepActive}`
+function getCurrentStep(): ICurrentStepProps {
+  const timelineSteps = Array.from(
+    document.querySelectorAll(`.${DOM.timelineStep}`)
   );
 
-  return currentStep || null;
+  const currentStep = timelineSteps.find((element) =>
+    element.classList.contains(`${DOM.timelineStepActive}`)
+  );
+
+  const currentStepIndex =
+    currentStep &&
+    timelineSteps.findIndex((element) =>
+      element.classList.contains(`${DOM.timelineStepActive}`)
+    );
+
+  return { currentStep, currentStepIndex };
+}
+
+function getCurrentSlide(): Element | null {
+  const { currentStepIndex } = getCurrentStep();
+
+  if (typeof currentStepIndex !== "number" || !timelineSlides) {
+    return null;
+  }
+
+  return timelineSlides[currentStepIndex];
 }
 
 function getStepActiveMarkerPosY(): number | null {
