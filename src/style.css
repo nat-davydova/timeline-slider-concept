@@ -104,12 +104,27 @@ body a {
 
 .timeline__stepper {
     --step-border-width: 3px;
-    --offset-to-slider-content: 50px;
+    --offset-to-slider-content: 30px;
 
     position: relative;
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
     margin-bottom: var(--offset-to-slider-content);
+}
+
+@media(min-width: 530px) {
+    .timeline__stepper {
+        display: flex;
+        justify-content: space-around;
+        gap: 0;
+    }
+}
+
+@media(min-width: 700px) {
+    .timeline__stepper {
+        --offset-to-slider-content: 50px;
+    }
 }
 
 .timeline__step {
@@ -118,15 +133,30 @@ body a {
     cursor: pointer;
 }
 
-.timeline__icon {
-    --timeline-icon-dimensions: 60px;
+@media(min-width: 530px) {
+    .timeline__step {
+        width: 100%;;
+    }
+}
 
+.timeline__icon {
+    --timeline-icon-dimensions: 45px;
+
+    position: relative;
     display: block;
     width: var(--timeline-icon-dimensions);
     max-height: var(--timeline-icon-dimensions);
     height: auto;
-    margin: 0 auto 30px;
+    margin: 0 auto;
     transition: opacity var(--transition-duration) var(--transition-timing-function) var(--transition-delay);
+}
+
+@media(min-width: 700px) {
+    .timeline__icon {
+        --timeline-icon-dimensions: 60px;
+
+        margin-bottom: 30px;
+    }
 }
 
 .timeline__icon--active {
@@ -143,11 +173,18 @@ body a {
     --extra-offset-fox-pixelperfect: -1px;
 
     position: relative;
+    display: none;
     padding-top: 30px;
     margin-bottom: 0;
     text-align: center;
     line-height: 1.7;
     border-top: var(--step-border-width) solid var(--border-color-default);
+}
+
+@media(min-width: 700px) {
+    .timeline__step-title {
+        display: block;
+    }
 }
 
 .timeline__step-title:before,
@@ -196,11 +233,18 @@ body a {
     position: absolute;
     top: var(--slide-pos-y);
     left: 0;
+    display: none;
     width: var(--slide-width);
     height: var(--step-border-width);
     transform: translateX(var(--slide-pos-x));
     transition: transform var(--transition-duration) var(--transition-timing-function) var(--transition-delay);
     background-image: var(--gradient-default);
+}
+
+@media(min-width: 700px) {
+    .timeline__step-active-marker {
+        display: block;
+    }
 }
 
 .timeline__step.is-active {
@@ -242,8 +286,8 @@ body a {
 }
 
 .timeline__slide {
-    --content-offset-x: 30px;
-    --content-offset-y: 40px;
+    --content-offset-x: 20px;
+    --content-offset-y: 30px;
 
     --decoration-blur-spread: 20px;
     --decoration-opacity: .7;
@@ -260,6 +304,14 @@ body a {
     opacity: 0;
     visibility: hidden;
 }
+
+@media(min-width: 700px) {
+    .timeline__slide {
+        --content-offset-x: 30px;
+        --content-offset-y: 40px;
+    }
+}
+
 
 .timeline__slide:before {
     position: absolute;
