@@ -41,7 +41,7 @@ interface ICurrentStepProps {
 
 window.addEventListener("load", () => {
   createStepActiveMarker();
-  activateSlide();
+  activateCurrentSlide();
 });
 
 timeline?.addEventListener("click", (event) => {
@@ -67,12 +67,15 @@ timeline?.addEventListener("click", (event) => {
   deactivateSteps();
   activateCurrentStep(currentStep);
 
-  const slideProps = getStepActiveMarkerProps();
-  if (!slideProps) {
+  const stepActiveMarkerProps = getStepActiveMarkerProps();
+  if (!stepActiveMarkerProps) {
     return;
   }
 
-  setStepActiveMarkerProps({ stepActiveMarker, ...slideProps });
+  setStepActiveMarkerProps({ stepActiveMarker, ...stepActiveMarkerProps });
+
+  deactivateSlides();
+  activateCurrentSlide();
 });
 
 function deactivateSteps(): void {
@@ -84,7 +87,13 @@ function activateCurrentStep(currentStep: Element): void {
   currentStep?.classList.add(`${DOM.timelineStepActive}`);
 }
 
-function activateSlide() {
+function deactivateSlides() {
+  timelineSlides?.forEach((elem) =>
+    elem.classList.remove(`${DOM.timelineSlideActive}`)
+  );
+}
+
+function activateCurrentSlide() {
   const currentSlide = getCurrentSlide();
   currentSlide?.classList.add(`${DOM.timelineSlideActive}`);
 }
