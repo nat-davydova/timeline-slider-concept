@@ -45,16 +45,7 @@ window.addEventListener("load", () => {
 });
 
 window.addEventListener("resize", () => {
-  const stepActiveMarker = timeline?.querySelector(
-    `.${DOM.timelineStepActiveMarker}`
-  ) as HTMLElement;
-
-  const stepActiveMarkerProps = getStepActiveMarkerProps();
-  if (!stepActiveMarkerProps) {
-    return;
-  }
-
-  setStepActiveMarkerProps({ stepActiveMarker, ...stepActiveMarkerProps });
+  recalcStepActiveMarkerProps();
 });
 
 timeline?.addEventListener("click", (event) => {
@@ -69,23 +60,15 @@ timeline?.addEventListener("click", (event) => {
   }
 
   const currentStep = target.closest(`.${DOM.timelineStep}`);
-  const stepActiveMarker = timeline.querySelector(
-    `.${DOM.timelineStepActiveMarker}`
-  ) as HTMLElement;
 
-  if (!currentStep || !stepActiveMarker) {
+  if (!currentStep) {
     return;
   }
 
   deactivateSteps();
   activateCurrentStep(currentStep);
 
-  const stepActiveMarkerProps = getStepActiveMarkerProps();
-  if (!stepActiveMarkerProps) {
-    return;
-  }
-
-  setStepActiveMarkerProps({ stepActiveMarker, ...stepActiveMarkerProps });
+  recalcStepActiveMarkerProps();
 
   deactivateSlides();
   activateCurrentSlide();
@@ -128,6 +111,19 @@ function createStepActiveMarker() {
     posY,
     ...positionProps,
   });
+}
+
+function recalcStepActiveMarkerProps(): void {
+  const stepActiveMarker = timeline?.querySelector(
+    `.${DOM.timelineStepActiveMarker}`
+  ) as HTMLElement;
+
+  const stepActiveMarkerProps = getStepActiveMarkerProps();
+  if (!stepActiveMarkerProps) {
+    return;
+  }
+
+  setStepActiveMarkerProps({ stepActiveMarker, ...stepActiveMarkerProps });
 }
 
 function setStepActiveMarkerProps({
