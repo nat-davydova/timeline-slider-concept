@@ -7,6 +7,7 @@ const DOM = {
   timelineStepTitle: "timeline__step-title",
   timelineStepActive: "is-active",
   timelineStepActiveMarker: "timeline__step-active-marker",
+  timelineSlidesContainer: "timeline__slides",
   timelineSlide: "timeline__slide",
   timelineSlideActive: "is-active",
 };
@@ -17,9 +18,16 @@ const STEP_ACTIVE_MARKEP_CUSTOM_PROPS = {
   posY: "--slide-pos-y",
 };
 
+const SLIDES_CONTAINER_CUSTOM_PROPS = {
+  height: "--slides-container-height",
+};
+
 const timeline = document.querySelector(`.${DOM.timeline}`);
 const timelineStepper = timeline?.querySelector(`.${DOM.timelineStepper}`);
 const timelineStepTitle = timeline?.querySelector(`.${DOM.timelineStepTitle}`);
+const timelineSlidesContainer = timeline?.querySelector(
+  `.${DOM.timelineSlidesContainer}`
+) as HTMLElement;
 const timelineSlides =
   timeline && Array.from(timeline.querySelectorAll(`.${DOM.timelineSlide}`));
 
@@ -91,7 +99,14 @@ function deactivateSlides() {
 
 function activateCurrentSlide() {
   const currentSlide = getCurrentSlide();
-  currentSlide?.classList.add(`${DOM.timelineSlideActive}`);
+
+  if (!currentSlide) {
+    return;
+  }
+
+  const currentSlideHeight = getCurrentSlideHeight(currentSlide);
+  setSlideContainerHeight(currentSlideHeight);
+  currentSlide.classList.add(`${DOM.timelineSlideActive}`);
 }
 
 function createStepActiveMarker() {
@@ -192,6 +207,17 @@ function getCurrentSlide(): Element | null {
   }
 
   return timelineSlides[currentStepIndex];
+}
+
+function setSlideContainerHeight(height: number): void {
+  timelineSlidesContainer?.style.setProperty(
+    `${SLIDES_CONTAINER_CUSTOM_PROPS.height}`,
+    `${height}px`
+  );
+}
+
+function getCurrentSlideHeight(currentSlide: Element): number {
+  return currentSlide.clientHeight;
 }
 
 function getStepActiveMarkerPosY(): number | null {
