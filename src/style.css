@@ -316,7 +316,7 @@ body a {
     opacity: var(--decoration-opacity);
     background-image: var(--gradient-default);
     filter: blur(var(--decoration-blur-spread));
-    transform: translate(var(--decoration-pos-x), var( --decoration-pos-y)) scale(var(--decoration-scale));
+    transform: translate3d(var(--decoration-pos-x), var( --decoration-pos-y), 0) scale(var(--decoration-scale));
     z-index: -1;
 }
 
